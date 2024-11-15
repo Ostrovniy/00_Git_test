@@ -57,3 +57,46 @@ test(too) # 100
 
 """Ответ 100 из за того что квадрат сначала было 5 на 5 и потом стал 10 на 10 и уже была расчитана площать квадрата
 но выглядет конечно да, не очень логично с точти кзерния читаимости """
+
+# соблюдения принцыпа LSP
+class Bird:
+    def eat(self):
+        print('Bird eat')
+    
+    def fly(self):
+        print('Bird fly')
+
+class Sparrow(Bird):
+    def fly(self):
+        print('Sparrow fly')
+
+class Eagle(Bird):
+    def fly(self):
+        print('Eagle fly')
+
+# Добавляем подкласс для нелетающих птиц
+class FlightlessBird(Bird):
+    def fly(self):
+        raise NotImplementedError('Cant fly')
+
+class Penguin(FlightlessBird):
+    def swim(self):
+        print('Penguin swim')
+
+
+def let_fly(bird: Bird):
+    try:
+        bird.fly()
+    except NotImplementedError as e:
+        print(e)
+
+# Использование
+sparrow = Sparrow()
+eagle = Eagle()
+penguin = Penguin()
+
+let_fly(sparrow)   # Выведет: Sparrow fly
+let_fly(eagle)     # Выведет: Eagle fly
+let_fly(penguin)   # Выведет: Cant fly
+
+"""Мы можем передать любой клсс который наслудует Bird и все корректно будет работать"""
