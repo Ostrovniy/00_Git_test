@@ -91,7 +91,8 @@ class CometaFactory(ObstacleFactory):
         return [Cometa(x, y)]
     
 class GroupFactory(ObstacleFactory):
-    """Создание группы обьектов, реализует интерфейс Фабрика препятствий"""
+    """Создание группы обьектов, реализует интерфейс Фабрика препятствий
+    Не совсем понимаю это в рамках этого патерна или нет"""
     @classmethod
     def create_obstacle(self):
         obstacles = []
