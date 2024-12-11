@@ -1,0 +1,59 @@
+'''
+class SQLQuery:
+    def __init__(self):
+        self.select_clause = ""
+        self.where_clause = ""
+        self.group_by_clause = ""
+        self.order_by_clause = ""
+
+    def __str__(self):
+        query = self.select_clause
+        if self.where_clause:
+            query += f" {self.where_clause}"
+        if self.group_by_clause:
+            query += f" {self.group_by_clause}"
+        if self.order_by_clause:
+            query += f" {self.order_by_clause}"
+        return query
+
+
+class SQLQueryBuilder:
+    def __init__(self):
+        self.query = SQLQuery()
+
+    def select(self, columns):
+        self.query.select_clause = f"SELECT {', '.join(columns)}"
+        return self
+
+    def from_table(self, table_name):
+        self.query.select_clause += f" FROM {table_name}"
+        return self
+
+    def where(self, condition):
+        self.query.where_clause = f"WHERE {condition}"
+        return self
+
+    def group_by(self, column):
+        self.query.group_by_clause = f"GROUP BY {column}"
+        return self
+
+    def order_by(self, column, order="ASC"):
+        self.query.order_by_clause = f"ORDER BY {column} {order}"
+        return self
+
+    def build(self):
+        return self.query
+
+
+# Использование
+builder = SQLQueryBuilder()
+query = (builder
+         .select(["id", "name", "age"])
+         .from_table("users")
+         .where("age > 18")
+         .order_by("name")
+         .build())
+
+print(query)
+
+'''
