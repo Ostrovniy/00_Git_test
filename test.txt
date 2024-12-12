@@ -57,3 +57,67 @@ query = (builder
 print(query)
 
 '''
+
+import requests
+
+class HttpRequest:
+    def __init__(self):
+        self.method = "GET"
+        self.url = ""
+        self.headers = {}
+        self.params = {}
+        self.body = None
+
+    def send(self):
+        response = requests.request(
+            method=self.method,
+            url=self.url,
+            headers=self.headers,
+            params=self.params,
+            json=self.body
+        )
+        return response
+
+class HttpRequestBuilder:
+    def __init__(self):
+        self.request = HttpRequest()
+
+    def set_method(self, method):
+        self.request.method = method
+        return self
+
+    def set_url(self, url):
+        self.request.url = url
+        return self
+
+    def add_header(self, key, value):
+        self.request.headers[key] = value
+        return self
+
+    def add_param(self, key, value):
+        self.request.params[key] = value
+        return self
+
+    def set_body(self, body):
+        self.request.body = body
+        return self
+
+    def build(self):
+        return self.request
+
+# Использование
+builder = HttpRequestBuilder()
+http_request = (builder
+    .set_method("POST")
+    .set_url("https://jsonplaceholder.typicode.com/posts")
+    .add_header("Content-Type", "application/json")
+    .set_body({
+        "title": "foo",
+        "body": "bar",
+        "userId": 1
+    })
+    .build())
+
+response = http_request.send()
+print("Статус код:", response.status_code)
+print("Ответ:", response.json())

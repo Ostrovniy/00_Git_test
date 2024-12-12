@@ -90,4 +90,72 @@ print(sqlquery)
 print(sqlquery2)
 
 
+# Второй пример, использования строителя для HTTP запросов (method, url, headers, params, body)
+import requests
+
+class HttpRequest:
+    def __init__(self):
+        self.method = 'GET'
+        self.url = ''
+        self.headers = {}
+        self.params = {}
+        self.body = None
+
+    def send(self):
+        response = requests.request(
+            method=self.method,
+            url=self.url,
+            headers=self.headers,
+            params=self.params,
+            json=self.body
+        )
+        return response
+    
+class HttpRequestBuilder:
+    def __init__(self):
+        self.request = HttpRequest()
+
+    def set_method(self, method):
+        self.request.method = method
+        return self
+
+    def set_url(self, url):
+        self.request.url = url
+        return self
+
+    def add_headers(self, kay, value):
+        self.request.headers[kay] = value
+        return self
+
+    def add_params(self, kay, value):
+        self.request.params[kay] = value
+        return self
+
+    def set_body(self, body):
+        self.request.body = body
+        return self
+
+    def bild(self):
+        return self.request
+
+
+# Пример использования
+bilderHttp = HttpRequestBuilder()
+http_requrst = (bilderHttp
+    .set_method('GET')
+    .set_url('https://jsonplaceholder.typicode.com/posts')
+    .add_headers('Content-Type', 'application/json')
+    .set_body({
+        'title': 'foo',
+        'body': 'bar',
+        'userId': 1
+    })
+    .bild())
+
+
+response = http_requrst.send()
+print("Статус код:", response.status_code)
+print("Ответ:", response.json())
+
+
 
