@@ -335,3 +335,21 @@ INSERT INTO Pass_in_trip (trip, passeger, place) VALUES
 (76, 3, '2A'),
 (76, 4, '2B');
 
+
+-- ТЕСТИРОВАНИЕ РАЗЛИЧНЫХ ЗАПРОСОВ   ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-- Показать все компании которые делаю Авиа перелеты
+SELECT * FROM Company;
+-- Показать всех людей которые воспользовались Авиа перелетом
+SELECT * FROM Passeger;
+-- Показать список всех рейсов
+SELECT * FROM Trip;
+-- Показать все билеты, Рейс, Клиет, Место
+SELECT * FROM Pass_in_trip;
+
+-- Количество людей которые воспользовалсить Авоо перелетом
+SELECT COUNT(id) as Count FROM Passeger;
+SELECT COUNT(DISTINCT passeger) as Count FROM Pass_in_trip;
+
+-- Имя клиента и количество рейсов котрое у него было
+SELECT Passeger.name, COUNT(trip) as Count FROM Pass_in_trip LEFT JOIN Passeger ON Passeger.id = Pass_in_trip.passeger GROUP BY passeger;
