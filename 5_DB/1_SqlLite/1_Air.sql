@@ -353,3 +353,31 @@ SELECT COUNT(DISTINCT passeger) as Count FROM Pass_in_trip;
 
 -- Имя клиента и количество рейсов котрое у него было
 SELECT Passeger.name, COUNT(trip) as Count FROM Pass_in_trip LEFT JOIN Passeger ON Passeger.id = Pass_in_trip.passeger GROUP BY passeger;
+
+
+
+-- //  ТЕСТОВАЯ ТАБЛИЦА ДЛЯ ДЖОЙНОВ
+
+
+CREATE TABLE A(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name TEXT
+);
+-- Result: запрос успешно выполнен. Заняло 0мс
+-- At line 6:
+CREATE TABLE B(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	task TEXT,
+	id_a INTEGER,
+	FOREIGN KEY (id_a) REFERENCES A(id)
+);
+
+INSERT INTO A(name) VALUES
+('Atanoloy'),
+('Sergei'),
+('Yuriy'),
+('Antonita');
+
+INSERT INTO B(task, id_a) VALUES
+('Купить слона', 1),
+('Купить Кота', 1);
